@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Gamepad2, Zap, Target, Clock, Star, Trophy, RotateCcw } from 'lucide-react';
+import { Gamepad2, Clock, Star, Trophy, RotateCcw } from 'lucide-react';
 import type { UserProgress, Theme } from '../App';
 import { useSoundEffects } from '../components/SoundManager';
 
@@ -106,21 +106,12 @@ const Games: React.FC<GamesProps> = ({ userProgress, updateProgress, currentThem
   };
 
   // Math Racing Game
-  const [racingCars, setRacingCars] = useState([
-    { id: 'player', position: 0, speed: 0 },
-    { id: 'opponent', position: 0, speed: 1 }
-  ]);
-
   const startRacingGame = () => {
     playClick(); // Sound effect for starting game
     setSelectedGame('racing');
     setGameState('playing');
     setScore(0);
     setTimeLeft(120);
-    setRacingCars([
-      { id: 'player', position: 0, speed: 0 },
-      { id: 'opponent', position: 0, speed: 1 }
-    ]);
   };
 
   // Number Matching Memory Game

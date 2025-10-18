@@ -53,7 +53,7 @@ const Practice: React.FC<PracticeProps> = ({ userProgress, updateProgress, curre
   const [problemResults, setProblemResults] = useState<ProblemResult[]>([]);
   
   // Sound effects
-  const { playCorrect, playIncorrect, playSuccess, playClick } = useSoundEffects(currentTheme);
+  const { playCorrect, playIncorrect, playSuccess } = useSoundEffects(currentTheme);
   
   // Settings
   const [settings, setSettings] = useState<PracticeSettings>({

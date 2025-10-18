@@ -38,7 +38,7 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   const [clickEffects, setClickEffects] = useState<ParticleEffect[]>([]);
   
   // Initialize sound effects
-  const { playClick, playThemeSound } = useSoundEffects(theme);
+  const { playThemeSound } = useSoundEffects(theme);
 
   // Size classes
   const sizeClasses = {

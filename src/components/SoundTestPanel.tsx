@@ -9,7 +9,7 @@ interface SoundTestPanelProps {
 }
 
 const SoundTestPanel: React.FC<SoundTestPanelProps> = ({ theme, className = '' }) => {
-  const { playCorrect, playIncorrect, playSuccess, playClick, playThemeSound } = useSoundEffects(theme);
+  const { playCorrect, playIncorrect, playSuccess, playThemeSound } = useSoundEffects(theme);
 
   const soundTests = [
     {

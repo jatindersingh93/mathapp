@@ -1,14 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Target, Trophy, TrendingUp, Star, Award } from 'lucide-react';
+import { BookOpen, Target, Trophy, TrendingUp, Star, Award, Gamepad2, Sparkles } from 'lucide-react';
 import type { UserProgress, Theme } from '../App';
+import AnimatedCard from '../components/AnimatedCard';
+import AnimatedButton from '../components/AnimatedButton';
+import SoundTestPanel from '../components/SoundTestPanel';
 
 interface HomeProps {
   userProgress: UserProgress;
   currentTheme: Theme;
 }
 
-const Home: React.FC<HomeProps> = ({ userProgress }) => {
+const Home: React.FC<HomeProps> = ({ userProgress, currentTheme }) => {
   const quickActions = [
     {
       title: 'Continue Learning',
@@ -25,11 +28,25 @@ const Home: React.FC<HomeProps> = ({ userProgress }) => {
       color: 'bg-green-500',
     },
     {
+      title: 'Math Games',
+      description: 'Learn while having fun!',
+      icon: Gamepad2,
+      path: '/games',
+      color: 'bg-purple-500',
+    },
+    {
+      title: 'Story Adventures',
+      description: 'Mathematical fairy tales',
+      icon: Sparkles,
+      path: '/story',
+      color: 'bg-pink-500',
+    },
+    {
       title: 'View Progress',
       description: 'See how far you\'ve come',
       icon: TrendingUp,
       path: '/progress',
-      color: 'bg-purple-500',
+      color: 'bg-indigo-500',
     },
     {
       title: 'Collect Rewards',
@@ -52,7 +69,7 @@ const Home: React.FC<HomeProps> = ({ userProgress }) => {
       <div className="text-center py-12">
         <div className="mb-6">
           <div className="inline-flex items-center justify-center w-24 h-24 bg-white/20 rounded-full mb-4">
-            <span className="text-4xl">🎯</span>
+            <span className={`text-4xl ${currentTheme.animation}`}>{currentTheme.character}</span>
           </div>
         </div>
         
@@ -60,8 +77,7 @@ const Home: React.FC<HomeProps> = ({ userProgress }) => {
           Welcome to MathQuest!
         </h1>
         <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-          Embark on an exciting mathematical adventure where learning meets fun.
-          Solve problems, earn stars, and become a math champion!
+          {currentTheme.description} Join this exciting mathematical adventure where learning meets fun!
         </p>
 
         {/* Progress Summary */}
@@ -101,20 +117,36 @@ const Home: React.FC<HomeProps> = ({ userProgress }) => {
       </div>
 
       {/* Quick Actions */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {quickActions.map((action, index) => {
           const IconComponent = action.icon;
           return (
-            <Link
-              key={index}
-              to={action.path}
-              className="group bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all duration-300 transform hover:scale-105"
-            >
-              <div className={`inline-flex items-center justify-center w-12 h-12 ${action.color} rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <IconComponent className="text-white" size={24} />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">{action.title}</h3>
-              <p className="text-white/80">{action.description}</p>
+            <Link key={index} to={action.path}>
+              <AnimatedCard
+                theme={currentTheme}
+                hoverable={true}
+                glowEffect={true}
+                characterDecoration={false}
+                floatingElements={true}
+                className="h-full cursor-pointer"
+              >
+                <div className={`inline-flex items-center justify-center w-12 h-12 ${action.color} rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <IconComponent className="text-white" size={24} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">{action.title}</h3>
+                <p className="text-white/80">{action.description}</p>
+                <div className="mt-4">
+                  <AnimatedButton
+                    theme={currentTheme}
+                    size="sm"
+                    variant="secondary"
+                    className="w-full"
+                    particles={false}
+                  >
+                    Start →
+                  </AnimatedButton>
+                </div>
+              </AnimatedCard>
             </Link>
           );
         })}
@@ -165,6 +197,9 @@ const Home: React.FC<HomeProps> = ({ userProgress }) => {
           Start Challenge
         </Link>
       </div>
+
+      {/* Sound Test Panel */}
+      <SoundTestPanel theme={currentTheme} className="mt-8" />
     </div>
   );
 };
